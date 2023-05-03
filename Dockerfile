@@ -9,6 +9,7 @@ COPY . /app
 
 # 安裝相依套件
 RUN pip install --no-cache-dir -r requirement.txt
+RUN python -m spacy download zh_core_web_trf
 
 # 指定執行的命令
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
