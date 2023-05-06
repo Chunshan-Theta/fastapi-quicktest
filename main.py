@@ -72,6 +72,13 @@ async def read_item(item: Input) -> Output:
             )
         except (KeyError, IndexError) as e:
             runCount+=1
+        except openai.error.AuthenticationError as e:
+            return Output(
+                input = item.content,
+                passStatus = False,
+                result = "AuthenticationError: Incorrect API key provided",
+                runCount = runCount
+            )
 
         responesLabel = response["choices"][0]["message"]["content"]
         return Output(
