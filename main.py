@@ -15,12 +15,13 @@ def toChatGPTFilter(filters: List[ScoreFilter]) -> str:
   returnContent: str = f"你是一個在職業介紹所的用戶分析專家，請根據該內文來分析內容與以下{len(filters)}個項目的相關強弱程度？\n"
   for f in filters:
         returnContent = returnContent+f"{f.title}: {f.description}\n"
-  return returnContent+f"\n逐個項目回答並遵守以下規則。\n1. 總共回答{len(filters)}個內容，\n2.以`主題名稱：強/弱`格式回應，程度表示只能選擇『強』或『弱』。\n3.不說明原因，不解釋內容。\n\n"
+  return returnContent+f"\n逐個項目回答{len(filters)}個項目，以`主題名稱：強/弱`格式回應。\n不說明原因，不解釋內容\n"
+
 roleFilter = [
     # ScoreFilter(title="Bewildered", description="該類型內容著重用戶處於對於未來職涯選擇感到難以抉擇。"),
     # ScoreFilter(title="Seeking-comfort", description="該類型內容帶有受害者心態、感覺委屈或不滿現狀，強調身心問題、情緒感受或人際關係。"),
     # ScoreFilter(title="Inquiry", description="該類型內容不討論身心問題、情緒感受或人際關係，只討論數值資訊且條理清晰，是尋求數值型答案的明確答案。"),
-        ScoreFilter(title="Bewildered", description="情緒屬於不知所措，不一定想得到答案，以參考意見為主，問題不明確。"),
+    ScoreFilter(title="Bewildered", description="情緒屬於不知所措，不一定想得到答案，以參考意見為主，問題不明確。"),
     ScoreFilter(title="Seeking-comfort", description="情烈的負面情緒，或出現攻擊或捍衛性字眼（例如被衝康）"),
     ScoreFilter(title="Inquiry", description="情緒平穩，不透露真實感受，有背景資訊、條理清晰，問題明確"),
 ]
@@ -58,6 +59,9 @@ async def read_item(item: Input) -> Output:
             scores = response["choices"][0]["message"]["content"]
             scores = scores.replace("：", ": ")
             scores = [score.split(": ") for score in scores.split("\n")]
+            processedResult = {ss[0]: '強' if '強' in ss[1] else '弱'  for ss in scores }
+            for rf in roleFilter:
+                assert rf.title in processedResult
             return Output(
                 input = item.content,
                 passStatus = True,
