@@ -2,3 +2,4 @@ fastapi
 uvicorn
 pydantic
 openai==0.27.6
+pymongo

@@ -4,7 +4,7 @@ import uvicorn
 from typing import NamedTuple, List, Dict, Any
 import os
 import openai
-
+from logger import writeLog
 openai.api_key  = os.environ.get('chatgpt_api_key')
 
 
@@ -62,10 +62,12 @@ async def read_item(item: Input) -> Output:
             processedResult = {ss[0]: '強' if '強' in ss[1] else '弱'  for ss in scores }
             for rf in roleFilter:
                 assert rf.title in processedResult
+
+            writeLog(item.content, processedResult)
             return Output(
                 input = item.content,
                 passStatus = True,
-                result = {ss[0]: '強' if '強' in ss[1] else '弱'  for ss in scores },
+                result = processedResult,
                 runCount = runCount
             )
         except (KeyError, IndexError) as e:
