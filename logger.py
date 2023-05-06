@@ -1,9 +1,11 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-from typing import Any
+from typing import TypedDict, Dict, Any
 import os
 
+
 uri = os.environ.get('mongo_host')
+
 # Create a new client and connect to the server
 client = MongoClient(uri, server_api=ServerApi('1'))
 
@@ -15,7 +17,6 @@ print("Pinged your deployment. You successfully connected to MongoDB!")
 mydb = client["model"] 
 mycol = mydb["executelog"]
 
-from typing import TypedDict, Dict, Any
 
 class ExecuteLogUnit(TypedDict):
   head: str

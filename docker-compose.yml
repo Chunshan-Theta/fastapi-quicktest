@@ -5,5 +5,6 @@ services:
     build: .
     environment:
       chatgpt_api_key: ""
+      mongo_host: ""
     ports:
       - "8000:8000"
