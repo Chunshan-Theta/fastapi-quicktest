@@ -76,7 +76,7 @@ async def read_item(item: Input) -> Output:
             return Output(
                 input = item.content,
                 passStatus = False,
-                result = "AuthenticationError: Incorrect API key provided",
+                result = {"systemError": "AuthenticationError: Incorrect API key provided"},
                 runCount = runCount
             )
 
