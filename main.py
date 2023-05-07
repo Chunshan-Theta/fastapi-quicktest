@@ -4,6 +4,8 @@ import uvicorn
 from typing import List, Tuple
 import spacy
 import requests
+from logger import writeLog
+
 
 stop_words = requests.get("https://raw.githubusercontent.com/Chunshan-Theta/stopwords_zh/main/career-consultant-field.txt").text.split("\n")
 # print(stop_words)
@@ -54,6 +56,11 @@ async def read_item(item: Input):
             content = content.replace(stw, " ")
     
     result: Tuple[List[str], int] = doc2sent(nlp(content))
+
+    writeLog(
+        item.content,
+        result[0]
+    )
     return {
         "input": item.content ,
         "input_len": len(item.content) , 
