@@ -6,4 +6,4 @@ services:
     environment:
       mongo_host: ""
     ports:
-      - "8000:8000"
+      - "8002:8000"
