@@ -1,6 +1,4 @@
 fastapi
 uvicorn
 pydantic
-spacy==3.5.2
-spacy-transformers==1.2.3
 pymongo
