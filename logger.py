@@ -54,9 +54,9 @@ def createExecuteLogUnit(
 
 def writeLog(input: Any, output: Any):
     body = createExecuteLogUnit(
-        modelType = "simplifySentence", 
-        logTag = "common_zh_core_web_trf",
-        baseModel = "spacy", 
+        modelType = "intentClassification", 
+        logTag = "topics_20230507_1",
+        baseModel = "keywords", 
         lang = "zh", 
         version = "normal", 
         modelNumber = "001",
