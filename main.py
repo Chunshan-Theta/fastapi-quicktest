@@ -15,9 +15,10 @@ def toChatGPTFilter(filters: List[ScoreFilter]) -> str:
     returnContent: str = f"你是一個在職業介紹所的用戶分析專家，請根據該內文來分析內容與以下{len(filters)}個項目的相關強弱程度？\n"
     for f in filters:
         returnContent = returnContent+f"{f.title}: {f.description}\n"
-    returnContent+=f"\n逐個項目回答{len(filters)}個項目，以`主題名稱：強/弱`格式回應。\n不說明原因，不解釋內容\n回應範例如下:\n\n"
-    for f in filters:
-        returnContent = returnContent+f"{f.title}: 強\n"
+    returnContent+=f"\n逐個項目回答{len(filters)}個項目，以`主題名稱：強/弱`格式回應。\n不說明原因，不解釋內容"
+    # returnContent+="\n回應範例如下:\n\n"
+    # for f in filters:
+    #     returnContent = returnContent+f"{f.title}: 強\n"
     return returnContent
 
 roleFilter = [
