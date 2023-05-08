@@ -11,14 +11,15 @@ openai.api_key  = os.environ.get('chatgpt_api_key')
 class ScoreFilter(NamedTuple):
   title: str
   description: str
-def toChatGPTFilter(filters: List[ScoreFilter]) -> str:
+def toChatGPTFilter(filters: List[ScoreFilter], moreDetail=False) -> str:
     returnContent: str = f"你是一個在職業介紹所的用戶分析專家，請根據該內文來分析內容與以下{len(filters)}個項目的相關強弱程度？\n"
     for f in filters:
         returnContent = returnContent+f"{f.title}: {f.description}\n"
     returnContent+=f"\n逐個項目回答{len(filters)}個項目，以`主題名稱：強/弱`格式回應。\n不說明原因，不解釋內容"
-    # returnContent+="\n回應範例如下:\n\n"
-    # for f in filters:
-    #     returnContent = returnContent+f"{f.title}: 強\n"
+    if moreDetail:
+        returnContent+="\n回應範例如下:\n\n"
+        for f in filters:
+            returnContent = returnContent+f"{f.title}: 強\n"
     return returnContent
 
 roleFilter = [
@@ -29,7 +30,7 @@ roleFilter = [
     ScoreFilter(title="Seeking-comfort", description="情烈的負面情緒，或出現攻擊或捍衛性字眼（例如被衝康）"),
     ScoreFilter(title="Inquiry", description="情緒平穩，不透露真實感受，有背景資訊、條理清晰，問題明確"),
 ]
-role = toChatGPTFilter(roleFilter)
+
 
 
 app = FastAPI()
@@ -50,7 +51,8 @@ class Output(BaseModel):
 async def read_item(item: Input) -> Output:
 
     runCount = 0
-    while runCount<1:
+    while runCount<2:
+        role = toChatGPTFilter(roleFilter, False if runCount > 0 else True)
         try:
             response = openai.ChatCompletion.create(
                 model = 'gpt-3.5-turbo',

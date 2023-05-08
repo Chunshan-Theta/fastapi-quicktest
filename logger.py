@@ -59,7 +59,7 @@ def writeLog(input: Any, output: Any):
         baseModel = "chatgpt", 
         lang = "zh", 
         version = "normal", 
-        modelNumber = "001",
+        modelNumber = "002",
         inputContent = input, 
         output = output,
         approachAccount = "voiss", 
