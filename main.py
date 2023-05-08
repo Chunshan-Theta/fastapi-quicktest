@@ -84,7 +84,9 @@ async def read_item(item: Input) -> Output:
         return Output(
             input = item.content,
             passStatus = False,
-            result = f"{responesLabel}",
+            result ={
+                "reply": f"{responesLabel}"
+            },
             runCount = runCount
         )
 
