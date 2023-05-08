@@ -84,7 +84,7 @@ async def read_item(item: Input) -> Output:
         return Output(
             input = item.content,
             passStatus = False,
-            result = {ss[0]: ss[1] for ss in scores},
+            result = responesLabel,
             runCount = runCount
         )
 
