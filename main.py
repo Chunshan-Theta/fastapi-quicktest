@@ -70,7 +70,7 @@ async def read_item(item: Input) -> Output:
                 result = processedResult,
                 runCount = runCount
             )
-        except (KeyError, IndexError) as e:
+        except (KeyError, IndexError, AssertionError) as e:
             runCount+=1
         except openai.error.AuthenticationError as e:
             return Output(
