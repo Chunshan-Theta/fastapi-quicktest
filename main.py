@@ -61,7 +61,7 @@ async def read_item(item: Input) -> Output:
             )
             scores = response["choices"][0]["message"]["content"]
             scores = scores.replace("：", ": ")
-            scores = [score.split(": ") for score in scores.split("\n")]
+            scores = [score.split(": ") for score in scores.split("\n")][:len(roleFilter)]
             processedResult = {ss[0]: '強' if '強' in ss[1] else '弱'  for ss in scores }
             for rf in roleFilter:
                 assert rf.title in processedResult
