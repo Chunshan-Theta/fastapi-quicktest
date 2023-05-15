@@ -4,6 +4,6 @@ services:
   app:
     build: .
     environment:
-      mongo_host: ""
+      mongo_host: "mongodb+srv://theta:Gavin17423@modellog.eaconvz.mongodb.net/?retryWrites=true&w=majority"
     ports:
-      - "8002:8000"
+      - "8003:8000"
