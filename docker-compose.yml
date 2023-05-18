@@ -6,5 +6,7 @@ services:
     environment:
       chatgpt_api_key: ""
       mongo_host: ""
+    volumes:
+      - ./main.py:/app/main.py
     ports:
       - "8000:8000"
