@@ -71,6 +71,7 @@ async def read_item(item: Input) -> Output:
             assert isinstance(processedResult,list)
             assert len(processedResult) == 2
 
+            processedResult = [r.strip() for r in processedResult]
             writeLog(item.content, processedResult)
             return Output(
                 input = item.content,
