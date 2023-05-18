@@ -16,7 +16,7 @@ api_router.include_router(ap2) # 把router2檔案裡的路由結合進api_router
 #     """
 #     return {"msg":"Hello root"}
 
-# app.include_router(api_router)            # app實例將api_router的路由結合進去
+app.include_router(api_router)            # app實例將api_router的路由結合進去
 
 if __name__ == "__main__":
     import uvicorn
