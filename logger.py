@@ -55,7 +55,7 @@ def createExecuteLogUnit(
 def writeLog(input: Any, output: Any):
     body = createExecuteLogUnit(
         modelType = "intentClassification", 
-        logTag = "topics_20230507_1",
+        logTag = "topics_20230519_1",
         baseModel = "keywords", 
         lang = "zh", 
         version = "normal", 
